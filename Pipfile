@@ -1,0 +1,11 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+ingenialink = {path = "./packages/ingenialink-4.2.0.dev0-cp36-cp36m-win_amd64.whl"}
+numpy = "*"
+
+[requires]
+python_version = "3.6"
