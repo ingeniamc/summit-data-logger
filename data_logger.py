@@ -30,7 +30,10 @@ class ReadThread(Thread):
         async def callback(servo, key, shared_variable, refresh_time, close_activated):
             while not close_activated.value:
                 t_start = float(time())
-                shared_variable.value = servo.raw_read(key)
+                try:
+                    shared_variable.value = servo.raw_read(key)
+                except:
+                    pass
                 t_sleep = refresh_time - (float(time()) - t_start)
                 await asyncio.sleep(t_sleep)
 
