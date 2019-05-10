@@ -68,7 +68,7 @@ class LogDataThread(Thread):
                 for register_to_read in registers_to_read:
                     new_row.append(registers_data[register_to_read].value)
                 # Write row to csv
-                data_log_writer.writerow(new_row)
+                data_log_writer.writerow(str(el).replace('.', ',') if isinstance(el, float) else el for el in new_row)
                 data_log_file.flush()
                 # Wait until next iteration
                 t_sleep = refresh_time - (float(time()) - t_start)
@@ -224,7 +224,7 @@ class SummitDataLogger(object):
         # Init write thread
         # Create the csv file to log the data
         self.__data_log_file = open('./outputs/data_log.csv', 'w', newline='')
-        self.__data_log_writer = csv.writer(self.__data_log_file)
+        self.__data_log_writer = csv.writer(self.__data_log_file, delimiter=";")
         # Set headers to the csv
         headers = ['Timestamp']
         for register_to_read in self.__registers_to_read:
